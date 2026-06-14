@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-brand="ef">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fafaf8" />
+
+  <title>Ember &amp; Frames — Interior &amp; Architectural Photography</title>
+  <meta name="description" content="Interior &amp; architectural photography for hospitality, residential, and studio interiors across India. Based in Hyderabad. Commissioning for 2026." />
+  <meta name="author" content="Ember &amp; Frames" />
+  <meta name="keywords" content="interior photography, architectural photography, hospitality photography, real estate photography, India, Hyderabad, hotel photography, residential photography" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://emberandframes.github.io/interior-and-architectural-portfolio/" />
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/" />
+  <meta property="og:title" content="Ember &amp; Frames — Interior &amp; Architectural Photography" />
+  <meta property="og:description" content="Photography for hospitality, residential, and studio interiors across India." />
+  <meta property="og:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg" />
+  <meta property="og:image:secure_url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Ember &amp; Frames — interior &amp; architectural photography" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:site_name" content="Ember &amp; Frames" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=3" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=3" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ember & Frames \u2014 Interior & Architectural Photography",
+    "description": "Interior and architectural photography for hospitality, residential, and studio spaces across India.",
+    "image": "https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg",
+    "url": "https://emberandframes.github.io/interior-and-architectural-portfolio/",
+    "areaServed": "India",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hyderabad",
+      "addressCountry": "IN"
+    },
+    "email": "emberandframes@gmail.com",
+    "telephone": "+91 84474 02780"
+  }
+  </script>
+</head>
+<body>
+  <div id="progressbar" class="progressbar" aria-hidden="true"></div>
+  <div id="root"></div>
+
+  <noscript>
+    <div style="padding:40px;font-family:sans-serif;color:#18181a;background:#fafaf8;">
+      <h1>Ember &amp; Frames — Interior &amp; Architectural Photography</h1>
+      <p>This portfolio uses JavaScript to load images. Please enable JavaScript, or reach us directly:</p>
+      <ul>
+        <li>Email: <a href="mailto:emberandframes@gmail.com">emberandframes@gmail.com</a></li>
+        <li>Phone: <a href="tel:+918447402780">+91 84474 02780</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <!-- React 18 (UMD) -->
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel standalone (in-browser JSX) -->
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+
+  <!-- Data (plain JS — no JSX) -->
+  <script src="assets/js/data-ef.js"></script>
+
+  <!-- App (JSX inlined so the file works over file:// AND http://) -->
+  <script type="text/babel" data-presets="react">
+    /* === THEME BAKED IN PER FILE =========================================== */
+    const THEME = 'light';
+
+    const { useState, useEffect, useRef, useCallback } = React;
+    const { PHOTOS, PROJECTS, PROJECT_ORDER, SITE } = window.PORTFOLIO_DATA;
+
+    /* === Hooks ============================================================ */
+    function useProgressBar(frameRef) {
+      useEffect(() => {
+        const bar = document.getElementById('progressbar');
+        const el = frameRef.current;
+        if (!bar || !el) return;
+        function tick() {
+          const max = el.scrollHeight - el.clientHeight;
+          const p = max > 0 ? el.scrollTop / max : 0;
+          bar.style.transform = 'scaleX(' + p + ')';
+        }
+        el.addEventListener('scroll', tick, { passive: true });
+        tick();
+        return () => el.removeEventListener('scroll', tick);
+      }, [frameRef]);
+    }
+
+    function useRevealOnScroll(frameRef) {
+      useEffect(() => {
+        const root = frameRef.current;
+        if (!root) return;
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+          { root, rootMargin: '0px 0px 80px 0px', threshold: 0 }
+        );
+        root.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        window.requestAnimationFrame(() => {
+          const rb = root.getBoundingClientRect();
+          root.querySelectorAll('.reveal:not(.in)').forEach(el => {
+            const r = el.getBoundingClientRect();
+            if (r.top < rb.bottom + 80 && r.bottom > rb.top - 80) el.classList.add('in');
+          });
+        });
+        return () => io.disconnect();
+      }, [frameRef]);
+    }
+
+    function useColumnCount() {
+      const compute = () => {
+        if (typeof window === 'undefined') return 3;
+        const w = window.innerWidth;
+        if (w <= 480) return 1;
+        if (w <= 768) return 2;
+        return 3;
+      };
+      const [n, setN] = useState(compute);
+      useEffect(() => {
+        let raf = 0;
+        const onResize = () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => setN(compute()));
+        };
+        window.addEventListener('resize', onResize);
+        return () => { window.removeEventListener('resize', onResize); cancelAnimationFrame(raf); };
+      }, []);
+      return n;
+    }
+
+    /* === Icons (inline SVG) ============================================== */
+    function ChevronDown({ size = 14 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      );
+    }
+    function ChevronLeft({ size = 22 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      );
+    }
+    function ChevronRight({ size = 22 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      );
+    }
+    function CloseX({ size = 18 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+      );
+    }
+    function ArrowUpRight({ size = 14 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="7" y1="17" x2="17" y2="7" />
+          <polyline points="8 7 17 7 17 16" />
+        </svg>
+      );
+    }
+
+    /* === Lightbox ========================================================= */
+    function Lightbox({ photos, index, onClose, onNav }) {
+      useEffect(() => {
+        function onKey(e) {
+          if (e.key === 'Escape')     onClose();
+          if (e.key === 'ArrowLeft')  onNav(-1);
+          if (e.key === 'ArrowRight') onNav(1);
+        }
+        window.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+          window.removeEventListener('keydown', onKey);
+          document.body.style.overflow = '';
+        };
+      }, [onClose, onNav]);
+
+      if (index == null) return null;
+      const p = photos[index];
+
+      return (
+        <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label={p.caption}>
+          <button className="lb-btn close" onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Close"><CloseX size={20} /></button>
+          <button className="lb-btn prev"  onClick={(e) => { e.stopPropagation(); onNav(-1); }} aria-label="Previous"><ChevronLeft size={26} /></button>
+          <button className="lb-btn next"  onClick={(e) => { e.stopPropagation(); onNav(1);  }} aria-label="Next"><ChevronRight size={26} /></button>
+          <div className="lb-counter">{String(index + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</div>
+          <div className="lb-img-wrap" onClick={(e) => e.stopPropagation()}>
+            <img className="lb-img" src={p.src} alt={p.caption} draggable={false} onContextMenu={(e) => e.preventDefault()} />
+            <div className="lb-watermark" aria-hidden="true">© Ember <span className="wm-amp">&amp;</span> Frames</div>
+          </div>
+        </div>
+      );
+    }
+
+    /* === Brand wordmark (amber italic swash ampersand) =================== */
+    function BrandName({ name }) {
+      // Render "Ember & Frames" with the ampersand as an amber italic swash.
+      const parts = (name || '').split('&');
+      if (parts.length < 2) return name;
+      return (
+        <React.Fragment>
+          {parts[0].replace(/\s+$/, '')}
+          <span className="brand-amp">&amp;</span>
+          {parts.slice(1).join('&').replace(/^\s+/, '')}
+        </React.Fragment>
+      );
+    }
+
+    /* === Header (no theme toggle in single-theme files) =================== */
+    function Header() {
+      return (
+        <header className="site-header">
+          <a href="#top" className="brand">
+            <BrandName name={SITE.name} />
+            <span className="discipline">— {SITE.discipline}</span>
+          </a>
+          <nav aria-label="Primary">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#enquire">Enquire</a>
+          </nav>
+        </header>
+      );
+    }
+
+    /* === Hero ============================================================= */
+    function Hero() {
+      const heroId = THEME === 'dark' ? SITE.heroPhotoDark : SITE.heroPhotoLight;
+      const photo  = PHOTOS.find(p => p.id === heroId) || PHOTOS[0];
+
+      return (
+        <section className="hero" id="top">
+          <div className="bg">
+            <img src={photo.src} alt="" loading="eager" draggable={false} onContextMenu={(e) => e.preventDefault()} />
+          </div>
+          <div className="scrim" />
+          <div className="content">
+            <div className="hero-block">
+              <h1 className="reveal">
+                {SITE.title1}<br />
+                <span className="accent-italic italic">{SITE.title2}</span>
+              </h1>
+              <p className="tagline reveal">{SITE.tagline}</p>
+              <p className="about-line reveal">{SITE.shortAbout}</p>
+              <a href="#work" className="cta reveal">View the work <ArrowUpRight size={13} /></a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* === Balanced JS masonry (places each photo into the shortest column) */
+    function BalancedMasonry({ id, photos, onPhotoClick }) {
+      // Keep image sizing consistent across projects — always use the
+      // viewport's natural column count (desktop = 3, tablet = 2, phone = 1).
+      const columns = useColumnCount();
+      const [cols, setCols] = useState(null);
+
+      useEffect(() => {
+        let cancelled = false;
+        setCols(null);
+        const ratios = new Array(photos.length).fill(null);
+        let pending = photos.length;
+
+        const finalize = () => {
+          if (cancelled) return;
+          // Tallest-first greedy: sort by ratio desc for placement decisions,
+          // then sort each column's items by original index to keep display order.
+          const indexed = photos.map((p, i) => ({ p, i, r: ratios[i] || 1.25 }));
+          const sorted = [...indexed].sort((a, b) => b.r - a.r);
+          const buckets = Array.from({ length: columns }, () => ({ h: 0, items: [] }));
+          sorted.forEach((entry) => {
+            const min = buckets.reduce((a, b) => a.h <= b.h ? a : b);
+            min.items.push(entry);
+            min.h += entry.r;
+          });
+          setCols(buckets.map(b => b.items.sort((a, b) => a.i - b.i).map(e => e.p)));
+        };
+
+        const settle = (i, w, h) => {
+          if (cancelled) return;
+          ratios[i] = (h && w) ? (h / w) : 1.25;
+          pending -= 1;
+          if (pending <= 0) finalize();
+        };
+
+        photos.forEach((p, i) => {
+          const probe = new Image();
+          probe.onload  = () => settle(i, probe.naturalWidth, probe.naturalHeight);
+          probe.onerror = () => settle(i, 4, 5);
+          probe.src = p.src;
+          if (probe.complete && probe.naturalWidth) {
+            settle(i, probe.naturalWidth, probe.naturalHeight);
+          }
+        });
+
+        // Fallback: distribute with whatever ratios we have after 2.5s
+        const t = setTimeout(() => {
+          if (cancelled || pending <= 0) return;
+          for (let i = 0; i < ratios.length; i++) if (ratios[i] == null) ratios[i] = 1.25;
+          pending = 0;
+          finalize();
+        }, 2500);
+
+        return () => { cancelled = true; clearTimeout(t); };
+      }, [photos, columns]);
+
+      // While measuring: render CSS-columns version so the user sees photos immediately
+      if (!cols) {
+        return (
+          <div id={id} className="project-masonry">
+            {photos.map((ph) => (
+              <figure key={ph.id} onClick={() => onPhotoClick(ph.id)}>
+                <div className="ph hover-zoom">
+                  <img src={ph.src} alt={ph.caption} loading="lazy" draggable={false} onContextMenu={(e) => e.preventDefault()} />
+                  <div className="ph-watermark" aria-hidden="true">© Ember <span className="wm-amp">&amp;</span> Frames</div>
+                </div>
+              </figure>
+            ))}
+          </div>
+        );
+      }
+
+      return (
+        <div
+          id={id}
+          className="project-balanced"
+          style={{ gridTemplateColumns: 'repeat(' + columns + ', 1fr)' }}
+        >
+          {cols.map((col, ci) => (
+            <div key={ci} className="balanced-col">
+              {col.map(ph => (
+                <figure key={ph.id} onClick={() => onPhotoClick(ph.id)}>
+                  <div className="ph hover-zoom">
+                    <img src={ph.src} alt={ph.caption} loading="lazy" draggable={false} onContextMenu={(e) => e.preventDefault()} />
+                    <div className="ph-watermark" aria-hidden="true">© Ember <span className="wm-amp">&amp;</span> Frames</div>
+                  </div>
+                </figure>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    /* === Project Grid ===================================================== */
+    function ProjectGrid({ project, index, onPhotoClick, photos }) {
+      const PREVIEW_COUNT = 3;
+      const [expanded, setExpanded] = useState(false);
+      const blockRef = useRef(null);
+      const visiblePhotos = expanded ? photos : photos.slice(0, PREVIEW_COUNT);
+      const hiddenCount = photos.length - PREVIEW_COUNT;
+      const sectionId = 'project-' + (project.title || index).toString().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const useBalanced = expanded || hiddenCount <= 0;
+
+      const handleToggle = () => {
+        setExpanded(v => {
+          const next = !v;
+          // When expanding, scroll the project's heading into view so the
+          // user can see the full set from the top. We scroll twice — once
+          // immediately (smooth) and once after the balanced-masonry layout
+          // settles (instant correction), because the initial CSS-columns
+          // fallback can be taller than the final layout.
+          if (next && blockRef.current) {
+            const target = blockRef.current;
+            window.requestAnimationFrame(() => {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            setTimeout(() => {
+              target.scrollIntoView({ behavior: 'auto', block: 'start' });
+            }, 900);
+          }
+          return next;
+        });
+      };
+
+      return (
+        <div className="reveal project-block" ref={blockRef}>
+          <div className="project-divider">
+            <div className="line" />
+            <div className="meta">
+              <div className="num">Project {String(index + 1).padStart(2, '0')} / {String(PROJECT_ORDER.length).padStart(2, '0')}</div>
+              <div className="title">{project.title}</div>
+              <div className="sub">{project.subtitle} · {project.year}</div>
+            </div>
+            <div className="line" />
+          </div>
+          {useBalanced ? (
+            <BalancedMasonry id={sectionId} photos={visiblePhotos} onPhotoClick={onPhotoClick} />
+          ) : (
+            <div id={sectionId} className="project-preview">
+              {visiblePhotos.map((ph) => (
+                <figure key={ph.id} onClick={() => onPhotoClick(ph.id)}>
+                  <div className="ph hover-zoom">
+                    <img src={ph.src} alt={ph.caption} loading="lazy" draggable={false} onContextMenu={(e) => e.preventDefault()} />
+                    <div className="ph-watermark" aria-hidden="true">© Ember <span className="wm-amp">&amp;</span> Frames</div>
+                  </div>
+                </figure>
+              ))}
+            </div>
+          )}
+          {hiddenCount > 0 && (
+            <div className="project-toggle-wrap">
+              <button
+                type="button"
+                className="project-toggle"
+                aria-expanded={expanded}
+                aria-controls={sectionId}
+                onClick={handleToggle}
+              >
+                <span>{expanded ? 'Show less' : 'View all ' + photos.length + ' photos'}</span>
+                <span className="chev" aria-hidden="true"><ChevronDown size={13} /></span>
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    /* === Work ============================================================= */
+    function Work({ onPhotoClick }) {
+      return (
+        <section className="section" id="work">
+          <div className="section-title reveal">
+            <h2>The <em className="italic accent">Collection.</em></h2>
+          </div>
+          {PROJECT_ORDER.map((key, i) => {
+            const project = PROJECTS[key];
+            const photos = project.photos.map(id => PHOTOS.find(p => p.id === id)).filter(Boolean);
+            return <ProjectGrid key={key} project={project} index={i} onPhotoClick={onPhotoClick} photos={photos} />;
+          })}
+        </section>
+      );
+    }
+
+    /* === About ============================================================ */
+    function About() {
+      return (
+        <section className="section alt" id="about">
+          <div className="about reveal">
+            <div>
+              <h2>Photography that does more than <em className="italic accent">document.</em></h2>
+            </div>
+            <div>
+              <p>
+                We’re {SITE.name}, an interior and architectural photography studio based in {SITE.city}.
+                We work with developers, hospitality groups, architects, and interior designers to make pictures
+                that hold up where it matters — sales floors, hero banners, hoardings, and brand books.
+              </p>
+              <p>
+                Every space has a hierarchy. Our job is to read it on site — the long view that anchors the brochure,
+                the corner that sells the unit, the small detail that tells you somebody actually <em>cared</em>.
+                We shoot tethered, light to feel, and deliver clean, brand-ready files.
+              </p>
+              <p className="secondary">
+                Currently photographing hospitality, residential, and studio interiors across India.
+                Recent commissions for Ira Ventures, Studio 512, Rü — Craft Bar, and Lunar Cafe.
+              </p>
+              <div className="credentials">
+                <div style={{ gridColumn: '1 / -1' }}><span className="v">Hyderabad, India</span>Available for shoots across India and beyond</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* === Enquire (form) =================================================== */
+    const PROJECT_TYPES = ['Show Flat', 'Restaurant / Bar / Café', 'Residential', 'Hotel / Resort', 'Studio'];
+
+    function buildEnquiryBody(values, typesList) {
+      return (
+        'Name: ' + (values.name || '') + '\n' +
+        'Email: ' + (values.email || '') + '\n' +
+        'Phone: ' + (values.phone || '') + '\n' +
+        'Studio / Brand: ' + (values.studio || '') + '\n' +
+        'Project type: ' + (typesList.join(', ') || '—') + '\n\n' +
+        'Message:\n' + (values.message || '')
+      );
+    }
+
+    function Enquire() {
+      const [types, setTypes] = useState([]);
+      const [status, setStatus] = useState({ msg: '', kind: '' });
+      const formRef = useRef(null);
+      const toggleType = (t) => setTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
+
+      const collect = () => {
+        const f = formRef.current;
+        if (!f) return null;
+        const data = new FormData(f);
+        return {
+          name:    (data.get('name')    || '').toString().trim(),
+          email:   (data.get('email')   || '').toString().trim(),
+          phone:   (data.get('phone')   || '').toString().trim(),
+          studio:  (data.get('studio')  || '').toString().trim(),
+          message: (data.get('message') || '').toString().trim(),
+        };
+      };
+
+      const onSubmit = (e) => {
+        e.preventDefault();
+        const f = formRef.current;
+        if (f && !f.checkValidity()) { f.reportValidity(); return; }
+        const v = collect(); if (!v) return;
+        const subject = encodeURIComponent('Project enquiry — ' + (v.name || 'New brief'));
+        const body = encodeURIComponent(buildEnquiryBody(v, types));
+        setStatus({ msg: "Opening your email — please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
+        window.location.href = 'mailto:' + SITE.email + '?subject=' + subject + '&body=' + body;
+      };
+
+      const onWhatsApp = () => {
+        const f = formRef.current;
+        if (f && !f.checkValidity()) { f.reportValidity(); return; }
+        const v = collect(); if (!v) return;
+        const intro = 'Hi Ember & Frames — enquiry from your portfolio.\n\n';
+        const text = encodeURIComponent(intro + buildEnquiryBody(v, types));
+        setStatus({ msg: "Opening WhatsApp — please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
+        window.open(SITE.waHref + '?text=' + text, '_blank', 'noopener,noreferrer');
+      };
+
+      return (
+        <section className="section" id="enquire">
+          <div className="enquire reveal">
+            <div>
+              <h2>Have a space worth <em className="italic accent">photographing?</em></h2>
+              <p className="lead">
+                Tell us about the project — the brief, the space, the timing.
+                We read every message and reply within two working days.
+              </p>
+              <p className="lead-meta">Full-day &amp; half-day rates · Travel across India.</p>
+            </div>
+            <form ref={formRef} onSubmit={onSubmit} noValidate>
+              <label><span>Name <em className="required" aria-hidden="true">*</em></span><input className="field" type="text" name="name" required autoComplete="name" /></label>
+              <label><span>Email <em className="required" aria-hidden="true">*</em></span><input className="field" type="email" name="email" required autoComplete="email" /></label>
+              <label><span>Phone</span><input className="field" type="tel" name="phone" autoComplete="tel" /></label>
+              <label><span>Studio / Brand <em className="required" aria-hidden="true">*</em></span><input className="field" type="text" name="studio" required autoComplete="organization" /></label>
+              <div className="field-group">
+                <span className="field-label">
+                  Project type <em className="optional">(select all that apply)</em>
+                </span>
+                <div className="pills" role="group" aria-label="Project type">
+                  {PROJECT_TYPES.map(t => (
+                    <button
+                      key={t}
+                      type="button"
+                      className="pill"
+                      aria-pressed={types.includes(t)}
+                      onClick={() => toggleType(t)}
+                    >{t}</button>
+                  ))}
+                </div>
+              </div>
+              <label><span>Message</span><textarea className="field" rows="5" name="message" /></label>
+              <div className="form-actions">
+                <button className="submit" type="submit">Send enquiry</button>
+                <button className="submit alt" type="button" onClick={onWhatsApp} aria-label="Send via WhatsApp">
+                  Send via WhatsApp
+                </button>
+              </div>
+              {status.msg && (
+                <div className={'form-status ' + status.kind} aria-live="polite">{status.msg}</div>
+              )}
+            </form>
+          </div>
+        </section>
+      );
+    }
+
+    /* === Contact ========================================================== */
+    function Contact() {
+      return (
+        <section className="section alt" id="contact">
+          <div className="contact reveal">
+            <h2>Get in <em className="italic accent">touch.</em></h2>
+            <div className="cards">
+              <a className="card" href={'mailto:' + SITE.email}>
+                <span className="label">Email</span>
+                <span className="value">{SITE.email}</span>
+              </a>
+              <a className="card" href={SITE.waHref} target="_blank" rel="noopener noreferrer">
+                <span className="label">WhatsApp · Phone</span>
+                <span className="value">{SITE.phone}</span>
+              </a>
+              <div className="card">
+                <span className="label">Studio</span>
+                <span className="value">{SITE.city}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* === Footer =========================================================== */
+    function Footer() {
+      return (
+        <footer className="site-footer">
+          <div className="footer-brand"><BrandName name={SITE.name} /></div>
+          <div className="footer-copy">© {SITE.year} · {SITE.discipline}</div>
+          <a href="#top">Back to top ↑</a>
+        </footer>
+      );
+    }
+
+    /* === App ============================================================== */
+    function App() {
+      const [lbIndex, setLbIndex] = useState(null);
+      const [lbList, setLbList]   = useState([]);
+      const frameRef = useRef(null);
+
+      useProgressBar(frameRef);
+      useRevealOnScroll(frameRef);
+
+      const onPhotoClick = useCallback((photoId) => {
+        const photo = PHOTOS.find(p => p.id === photoId);
+        if (!photo) return;
+        const project = PROJECTS[photo.project];
+        const list = project.photos.map(id => PHOTOS.find(p => p.id === id)).filter(Boolean);
+        const i = list.findIndex(p => p.id === photoId);
+        setLbList(list);
+        setLbIndex(Math.max(0, i));
+      }, []);
+
+      const onNav = useCallback((delta) => {
+        setLbIndex(i => {
+          if (i == null) return i;
+          const n = lbList.length;
+          return (i + delta + n) % n;
+        });
+      }, [lbList.length]);
+
+      return (
+        <div className="ab-frame" ref={frameRef}>
+          <a href="#work" className="skip-link">Skip to work</a>
+          <Header />
+          <Hero />
+          <Work onPhotoClick={onPhotoClick} />
+          <About />
+          <Contact />
+          <Enquire />
+          <Footer />
+          {lbIndex != null && (
+            <Lightbox
+              photos={lbList}
+              index={lbIndex}
+              onClose={() => setLbIndex(null)}
+              onNav={onNav}
+            />
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <a class="wa-fab" href="https://wa.me/918447402780?text=Hi%20Ember%20%26%20Frames%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20enquire" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <span class="wa-fab-label">Chat on WhatsApp</span>
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.001 3C9.376 3 4 8.373 4 14.99c0 2.64.875 5.105 2.36 7.121L4 29l7.062-2.297a12.05 12.05 0 0 0 4.94 1.061h.005c6.624 0 12-5.373 12-11.99 0-3.205-1.246-6.218-3.51-8.482A11.927 11.927 0 0 0 16.001 3zm0 21.97h-.004a9.96 9.96 0 0 1-5.073-1.388l-.364-.216-4.19 1.362 1.376-4.084-.237-.376a9.96 9.96 0 0 1-1.527-5.297c0-5.5 4.478-9.974 9.978-9.974 2.665 0 5.171 1.04 7.054 2.926A9.91 9.91 0 0 1 25.98 14.99c0 5.5-4.478 9.98-9.979 9.98zm5.482-7.473c-.301-.151-1.78-.878-2.056-.978-.276-.1-.477-.151-.678.151s-.778.978-.954 1.179c-.176.201-.352.226-.653.075-.301-.151-1.27-.469-2.42-1.493-.894-.798-1.498-1.785-1.674-2.087-.176-.301-.019-.464.132-.615.135-.135.301-.352.452-.527.151-.176.201-.301.301-.502.1-.201.05-.377-.025-.527-.075-.151-.678-1.633-.929-2.236-.245-.587-.494-.507-.678-.517l-.578-.01c-.201 0-.527.075-.803.377-.276.301-1.054 1.029-1.054 2.51 0 1.481 1.079 2.911 1.229 3.112.151.201 2.123 3.241 5.144 4.541.719.31 1.279.495 1.717.633.722.229 1.378.197 1.898.12.579-.087 1.78-.728 2.031-1.43.251-.703.251-1.305.176-1.43-.075-.125-.276-.201-.578-.352z"/></svg>
+  </a>
+
+  <script>
+    // Lift the WhatsApp FAB above the footer when it scrolls into view.
+    (function setupFabLift(){
+      function tryInit(retries){
+        var fab = document.querySelector('.wa-fab');
+        var scroller = document.querySelector('.ab-frame');
+        var footer = document.querySelector('footer');
+        if (!fab || !scroller || !footer || !('IntersectionObserver' in window)) {
+          if (retries > 0) return setTimeout(function(){ tryInit(retries - 1); }, 150);
+          return;
+        }
+        new IntersectionObserver(function(entries){
+          fab.classList.toggle('lift-up', entries[0].isIntersecting);
+        }, { root: scroller, threshold: 0.01 }).observe(footer);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function(){ tryInit(20); });
+      } else {
+        tryInit(20);
+      }
+    })();
+  </script>
+</body>
+</html>
