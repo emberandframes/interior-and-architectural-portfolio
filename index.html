@@ -18,12 +18,10 @@
   <meta property="og:url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/" />
   <meta property="og:title" content="Ember &amp; Frames — Interior &amp; Architectural Photography" />
   <meta property="og:description" content="Photography for hospitality, residential, and studio interiors across India." />
-  <meta property="og:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg" />
-  <meta property="og:image:secure_url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg" />
+  <meta property="og:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
+  <meta property="og:image:secure_url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Ember &amp; Frames — interior &amp; architectural photography" />
+  <meta property="og:image:alt" content="Ember &amp; Frames — master bedroom with wood headboard, IRA Moonglade show flat" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:site_name" content="Ember &amp; Frames" />
 
@@ -46,7 +44,7 @@
     "@type": "ProfessionalService",
     "name": "Ember & Frames \u2014 Interior & Architectural Photography",
     "description": "Interior and architectural photography for hospitality, residential, and studio spaces across India.",
-    "image": "https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/og-cover.jpg",
+    "image": "https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg",
     "url": "https://emberandframes.github.io/interior-and-architectural-portfolio/",
     "areaServed": "India",
     "address": {
@@ -258,11 +256,40 @@
     function Hero() {
       const heroId = THEME === 'dark' ? SITE.heroPhotoDark : SITE.heroPhotoLight;
       const photo  = PHOTOS.find(p => p.id === heroId) || PHOTOS[0];
+      const heroImgRef = useRef(null);
+      const [heroLoaded, setHeroLoaded] = useState(false);
+
+      // The hero sits on its own compositor layer (.bg has will-change:transform).
+      // On some browsers that layer is not repainted when the image finishes
+      // decoding, so the photo stays blank until a scroll/click forces an update.
+      // Decode the image explicitly, then flip a state flag to force a repaint.
+      useEffect(() => {
+        const img = heroImgRef.current;
+        if (!img) return;
+        let cancelled = false;
+        const reveal = () => { if (!cancelled) setHeroLoaded(true); };
+        if (img.complete && img.naturalWidth) {
+          reveal();
+        } else if (typeof img.decode === 'function') {
+          img.decode().then(reveal).catch(reveal);
+        }
+      }, []);
 
       return (
         <section className="hero" id="top">
           <div className="bg">
-            <img src={photo.src} alt="" loading="eager" draggable={false} onContextMenu={(e) => e.preventDefault()} />
+            <img
+              ref={heroImgRef}
+              className={heroLoaded ? 'is-loaded' : ''}
+              src={photo.src}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              draggable={false}
+              onLoad={() => setHeroLoaded(true)}
+              onContextMenu={(e) => e.preventDefault()}
+            />
           </div>
           <div className="scrim" />
           <div className="content">
@@ -385,24 +412,34 @@
       const useBalanced = expanded || hiddenCount <= 0;
 
       const handleToggle = () => {
-        setExpanded(v => {
-          const next = !v;
-          // When expanding, scroll the project's heading into view so the
-          // user can see the full set from the top. We scroll twice — once
-          // immediately (smooth) and once after the balanced-masonry layout
-          // settles (instant correction), because the initial CSS-columns
-          // fallback can be taller than the final layout.
-          if (next && blockRef.current) {
-            const target = blockRef.current;
-            window.requestAnimationFrame(() => {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-            setTimeout(() => {
-              target.scrollIntoView({ behavior: 'auto', block: 'start' });
-            }, 900);
+        // Expanding: bring the newly revealed images (the second row) to the
+        // top so the user lands on the fresh content. Collapsing: return to the
+        // first row so the user sees the start of the project again. The gallery
+        // grows/shrinks downward, so its top stays put and a single scroll is
+        // enough.
+        const willExpand = !expanded;
+        const scroller = blockRef.current ? blockRef.current.closest('.ab-frame') : null;
+        const headerEl = document.querySelector('.site-header');
+        const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
+
+        const scrollToRow = () => {
+          const el = scroller ? scroller.querySelector('#' + sectionId) : null;
+          if (!scroller || !el) return;
+          const scRect = scroller.getBoundingClientRect();
+          const elRect = el.getBoundingClientRect();
+          // On expand, drop down by one photo's height so the first (already
+          // seen) row scrolls just above and the newly revealed row leads.
+          let extra = 0;
+          if (willExpand) {
+            const fig = el.querySelector('figure');
+            extra = fig ? fig.getBoundingClientRect().height + 16 : 0;
           }
-          return next;
-        });
+          scroller.scrollTop += (elRect.top - scRect.top) - headerH - 12 + extra;
+        };
+
+        setExpanded(willExpand);
+        window.requestAnimationFrame(scrollToRow);
+        setTimeout(scrollToRow, 80);
       };
 
       return (

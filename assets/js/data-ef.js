@@ -86,7 +86,7 @@
       year:     '2025',
       role:     'Lead photography',
       blurb:    'A 3-bedroom show flat completed for the developer’s sales launch. Shot across a single day, the brief was to capture the space as it would feel to a buyer walking in — lived-in, warm, and full of natural light.',
-      photos:   ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'],
+      photos:   ['p5','p1','p2','p3','p4','p6','p7','p8','p9','p10'],
     },
     outdoor: {
       title:    'Lunar Cafe',
@@ -119,8 +119,8 @@
     shortAbout:  'We work with developers, hospitality groups, and design studios — making pictures that earn their place on sales floors, hero banners, and brand books.',
 
     // Default hero photo per theme
-    heroPhotoDark:  's12', // DiGiCo desk, deep moody studio shot
-    heroPhotoLight: 'o4',  // Lunar Cafe by day — golden crescent + lush green
+    heroPhotoDark:  'p5', // Master bedroom, wood headboard
+    heroPhotoLight: 'p5', // Master bedroom, wood headboard
   };
 
   window.PORTFOLIO_DATA = {
