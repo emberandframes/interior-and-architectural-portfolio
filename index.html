@@ -189,6 +189,8 @@
 
     /* === Lightbox ========================================================= */
     function Lightbox({ photos, index, onClose, onNav }) {
+      const touchRef = useRef(null);
+
       useEffect(() => {
         function onKey(e) {
           if (e.key === 'Escape')     onClose();
@@ -203,16 +205,45 @@
         };
       }, [onClose, onNav]);
 
+      // Swipe navigation for touch devices.
+      const onTouchStart = useCallback((e) => {
+        const t = e.touches[0];
+        touchRef.current = { x: t.clientX, y: t.clientY, t: Date.now() };
+      }, []);
+      const onTouchEnd = useCallback((e) => {
+        const start = touchRef.current;
+        touchRef.current = null;
+        if (!start) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - start.x;
+        const dy = t.clientY - start.y;
+        // Treat as a horizontal swipe when it's mostly horizontal and long enough.
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          onNav(dx < 0 ? 1 : -1);
+        }
+      }, [onNav]);
+
       if (index == null) return null;
       const p = photos[index];
 
       return (
-        <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label={p.caption}>
+        <div
+          className="lightbox"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label={p.caption}
+        >
           <button className="lb-btn close" onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Close"><CloseX size={20} /></button>
           <button className="lb-btn prev"  onClick={(e) => { e.stopPropagation(); onNav(-1); }} aria-label="Previous"><ChevronLeft size={26} /></button>
           <button className="lb-btn next"  onClick={(e) => { e.stopPropagation(); onNav(1);  }} aria-label="Next"><ChevronRight size={26} /></button>
           <div className="lb-counter">{String(index + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</div>
-          <div className="lb-img-wrap" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="lb-img-wrap"
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <img className="lb-img" src={p.src} alt={p.caption} draggable={false} onContextMenu={(e) => e.preventDefault()} />
             <div className="lb-watermark" aria-hidden="true">© Ember <span className="wm-amp">&amp;</span> Frames</div>
           </div>

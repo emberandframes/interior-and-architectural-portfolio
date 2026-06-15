@@ -917,6 +917,8 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   align-items: center;
   justify-content: center;
   transition: color .2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .lb-btn:hover { color: #fff; }
 .lb-btn.close { top: 24px; right: 28px; }
@@ -951,6 +953,29 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
 }
 @media (max-width: 600px) {
   .lb-watermark { right: 10px; bottom: 8px; font-size: 12px; letter-spacing: 0.01em; }
+
+  /* Keep nav controls clearly visible and easy to tap on touch screens. */
+  .lb-btn { color: #fff; }
+  .lb-btn.close {
+    top: 14px; right: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 44px; height: 44px;
+    padding: 0;
+  }
+  .lb-btn.prev,
+  .lb-btn.next {
+    top: auto;
+    bottom: 18px;
+    transform: none;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 48px; height: 48px;
+    padding: 0;
+  }
+  .lb-btn.prev { left: 16px; }
+  .lb-btn.next { right: 16px; }
+  .lb-counter { top: 18px; }
 }
 
 /* ── Skip link (a11y) ──────────────────────────────────────────────────── */
