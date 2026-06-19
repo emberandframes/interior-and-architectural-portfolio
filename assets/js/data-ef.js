@@ -68,7 +68,7 @@
       year:     '2025',
       role:     'Photography & lighting',
       blurb:    'A full-service recording facility with five rooms: two live rooms, a control room, isolation booth, and rehearsal space. We shot entirely under practical red lighting — the studio’s own ambience, not ours. The brief was to make the gear look as good as it sounds.',
-      photos:   ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','s18'],
+      photos:   ['s5','s1','s2','s13','s8','s11','s9','s17','s3','s15','s10','s6','s12','s7','s4','s16','s18','s14'],
     },
     tiffin: {
       title:    'Rü — Craft Bar',
