@@ -695,8 +695,11 @@
     function Footer() {
       return (
         <footer className="site-footer">
-          <div className="footer-brand"><BrandName name={SITE.name} /></div>
-          <div className="footer-copy">© {SITE.year} · {SITE.discipline}</div>
+          <div className="footer-brand">
+            <BrandName name={SITE.name} />
+            <span className="footer-year"> · © {SITE.year}</span>
+          </div>
+          <div className="footer-copy"><span className="footer-copy-year">© {SITE.year} · </span>{SITE.discipline}</div>
           <a href="#top">Back to top ↑</a>
         </footer>
       );
@@ -760,7 +763,7 @@
   </a>
 
   <script>
-    // Lift the WhatsApp FAB above the footer when it scrolls into view.
+    // Lift the WhatsApp FAB above the footer when it scrolls into view (desktop only; disabled on mobile via CSS).
     (function setupFabLift(){
       function tryInit(retries){
         var fab = document.querySelector('.wa-fab');
