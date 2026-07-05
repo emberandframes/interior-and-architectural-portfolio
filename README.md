@@ -53,7 +53,7 @@ The wordmark renders "Ember &amp; Frames" as charcoal serif words with an amber 
 
 - `.brand-amp` styles the header ampersand (see [assets/css/styles.css](assets/css/styles.css)).
 - `.footer-brand` styles the footer wordmark.
-- The `BrandName` React component in [index.html](index.html) splits the name on `&` and wraps the ampersand.
+- The `Wordmark` React component in [index.html](index.html) splits `SITE.name` on `&` and wraps the ampersand; the header, footer, and image watermarks all render through it, so the brand name is defined once in `assets/js/data-ef.js`.
 
 The favicon ([assets/favicon.png](assets/favicon.png)) is an `E & F` monogram on a parchment background with charcoal letters and an amber ampersand, echoing the wordmark.
 
@@ -70,7 +70,7 @@ The ampersand colour (`--amp`, `#c97b3a`) is the studio's Ember Amber and is use
 
 ## Image watermark and copyright
 
-Every photograph (gallery thumbnail, hero, and lightbox) carries a discreet `© Ember & Frames` watermark with the ampersand rendered in Ember Amber. The watermark is a real element (`.ph-watermark` on thumbnails, `.lb-watermark` in the lightbox), styled in [assets/css/styles.css](assets/css/styles.css). Right-click save and image dragging are disabled on the gallery and lightbox as a light deterrent. To change the watermark text, edit the watermark markup in [index.html](index.html).
+Every photograph (gallery thumbnail, hero, and lightbox) carries a discreet `© Ember & Frames` watermark with the ampersand rendered in Ember Amber. The watermark is a real element (`.ph-watermark` on thumbnails, `.lb-watermark` in the lightbox), styled in [assets/css/styles.css](assets/css/styles.css) and populated from `SITE.name`. Right-click save and image dragging are disabled on the gallery and lightbox as a light deterrent. To change the watermark text, edit `SITE.name` in [assets/js/data-ef.js](assets/js/data-ef.js).
 
 ## Editing content
 
