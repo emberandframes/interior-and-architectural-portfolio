@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#fafaf8" />
+  <meta name="robots" content="index, follow" />
 
   <title>Ember &amp; Frames — Interior &amp; Architectural Photography</title>
   <meta name="description" content="Interior &amp; architectural photography for hospitality, residential, and studio interiors across India. Based in Hyderabad. Commissioning for 2026." />
@@ -25,9 +26,15 @@
   <meta property="og:locale" content="en_IN" />
   <meta property="og:site_name" content="Ember &amp; Frames" />
 
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ember &amp; Frames — Interior &amp; Architectural Photography" />
+  <meta name="twitter:description" content="Photography for hospitality, residential, and studio interiors across India." />
+  <meta name="twitter:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
+
   <!-- Icons -->
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=3" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=3" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=4" />
+  <link rel="apple-touch-icon" href="favicon.svg?v=4" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -278,7 +285,7 @@
         <header className={'site-header' + (menuOpen ? ' menu-open' : '')}>
           <a href="#top" className="brand" onClick={closeMenu}>
             <BrandName name={SITE.name} />
-            <span className="discipline">— {SITE.discipline}</span>
+            <span className="discipline">· {SITE.discipline}</span>
           </a>
           <button
             type="button"
@@ -563,16 +570,16 @@
               <p>
                 We’re {SITE.name}, an interior and architectural photography studio based in {SITE.city}.
                 We work with developers, hospitality groups, architects, and interior designers to make pictures
-                that hold up where it matters — sales floors, hero banners, hoardings, and brand books.
+                that hold up where it matters: sales floors, hero banners, hoardings, and brand books.
               </p>
               <p>
-                Every space has a hierarchy. Our job is to read it on site — the long view that anchors the brochure,
+                Every space has a hierarchy. Our job is to read it on site: the long view that anchors the brochure,
                 the corner that sells the unit, the small detail that tells you somebody actually <em>cared</em>.
                 We shoot tethered, light to feel, and deliver clean, brand-ready files.
               </p>
               <p className="secondary">
                 Currently photographing hospitality, residential, and studio interiors across India.
-                Recent commissions for Ira Ventures, Studio 512, Rü — Craft Bar, and Lunar Cafe.
+                Recent commissions for Ira Ventures, Studio 512, Rü Craft Bar, and Lunar Cafe.
               </p>
               <div className="credentials">
                 <div style={{ gridColumn: '1 / -1' }}><span className="v">Hyderabad, India</span>Available for shoots across India and beyond</div>
@@ -623,7 +630,7 @@
         const v = collect(); if (!v) return;
         const subject = encodeURIComponent('Project enquiry — ' + (v.name || 'New brief'));
         const body = encodeURIComponent(buildEnquiryBody(v, types));
-        setStatus({ msg: "Opening your email — please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
+        setStatus({ msg: "Opening your email. Please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
         window.location.href = 'mailto:' + SITE.email + '?subject=' + subject + '&body=' + body;
       };
 
@@ -631,9 +638,9 @@
         const f = formRef.current;
         if (f && !f.checkValidity()) { f.reportValidity(); return; }
         const v = collect(); if (!v) return;
-        const intro = 'Hi ' + SITE.name + ' — enquiry from your portfolio.\n\n';
+        const intro = 'Hi ' + SITE.name + ', enquiry from your portfolio.\n\n';
         const text = encodeURIComponent(intro + buildEnquiryBody(v, types));
-        setStatus({ msg: "Opening WhatsApp — please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
+        setStatus({ msg: "Opening WhatsApp. Please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
         window.open(SITE.waHref + '?text=' + text, '_blank', 'noopener,noreferrer');
       };
 
@@ -643,7 +650,7 @@
             <div>
               <h2>Have a space worth <em className="italic accent">photographing?</em></h2>
               <p className="lead">
-                Tell us about the project — the brief, the space, the timing.
+                Tell us about the project: the brief, the space, the timing.
                 We read every message and reply within two working days.
               </p>
               <p className="lead-meta">Full-day &amp; half-day rates · Travel across India.</p>
@@ -718,6 +725,7 @@
             <span className="footer-year">© {SITE.year}&nbsp;</span>
             <BrandName name={SITE.name} />
           </div>
+          <span className="footer-tag">Warm. Intentional. Unforgettable.</span>
           <a href="#top">Back to top ↑</a>
         </footer>
       );
@@ -782,14 +790,16 @@
   </a>
 
   <script>
-    // Personalize the WhatsApp FAB deep-link from site data, then lift it above
-    // the footer when it scrolls into view (desktop only; disabled on mobile via CSS).
+    // Personalize the WhatsApp FAB deep-link from site data, then lift it clear of
+    // the footer whenever the footer scrolls into view — on every screen size — so
+    // it never covers the "Back to top" link. The lift is computed from the footer's
+    // position, so it sits just above the footer regardless of footer height/layout.
     (function setupFab(){
       function tryInit(retries){
         var fab = document.querySelector('.wa-fab');
         var scroller = document.querySelector('.ab-frame');
         var footer = document.querySelector('footer');
-        if (!fab || !scroller || !footer || !('IntersectionObserver' in window)) {
+        if (!fab || !scroller || !footer) {
           if (retries > 0) return setTimeout(function(){ tryInit(retries - 1); }, 150);
           return;
         }
@@ -798,9 +808,26 @@
           var msg = 'Hi ' + SITE.name + ', I saw your portfolio and would like to enquire';
           fab.setAttribute('href', SITE.waHref + '?text=' + encodeURIComponent(msg));
         }
-        new IntersectionObserver(function(entries){
-          fab.classList.toggle('lift-up', entries[0].isIntersecting);
-        }, { root: scroller, threshold: 0.01 }).observe(footer);
+        function baseGap(){ return (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) ? 16 : 22; }
+        function update(){
+          var sr = scroller.getBoundingClientRect();
+          var fr = footer.getBoundingClientRect();
+          var overlap = sr.bottom - fr.top; // how much of the footer has risen into view
+          if (overlap > 0) {
+            fab.style.bottom = (overlap + baseGap()) + 'px'; // sit just above the footer's top edge
+          } else {
+            fab.style.bottom = '';
+          }
+        }
+        var ticking = false;
+        function onScroll(){
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(function(){ update(); ticking = false; });
+        }
+        scroller.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        update();
       }
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function(){ tryInit(20); });

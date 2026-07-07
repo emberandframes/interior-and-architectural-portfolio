@@ -55,7 +55,7 @@ The wordmark renders "Ember &amp; Frames" as charcoal serif words with an amber 
 - `.footer-brand` styles the footer wordmark.
 - The `Wordmark` React component in [index.html](index.html) splits `SITE.name` on `&` and wraps the ampersand; the header, footer, and image watermarks all render through it, so the brand name is defined once in `assets/js/data-ef.js`.
 
-The favicon ([assets/favicon.png](assets/favicon.png)) is an `E & F` monogram on a parchment background with charcoal letters and an amber ampersand, echoing the wordmark.
+The favicon ([favicon.svg](favicon.svg)) is the Ember & Frames viewfinder mark — an amber camera frame with charcoal corner brackets on a parchment tile — shared across all three studio portfolios. The legacy `favicon.png` monogram is kept for reference.
 
 ### Palette
 
@@ -66,7 +66,7 @@ The favicon ([assets/favicon.png](assets/favicon.png)) is an `E & F` monogram on
 | `--accent` | `#a48b3d` | Gold accent (links, FAB glyph)  |
 | `--amp`    | `#c97b3a` | Ember Amber ampersand           |
 
-The ampersand colour (`--amp`, `#c97b3a`) is the studio's Ember Amber and is used for the header, footer, watermark, and favicon ampersands. The WhatsApp floating action button uses the charcoal background with an amber glyph and pulse ring so it sits within the palette instead of the default WhatsApp green.
+The ampersand colour (`--amp`, `#c97b3a`) is the studio's Ember Amber and is used for the header, footer, and watermark ampersands, and the favicon frame. The WhatsApp floating action button uses the charcoal background with an amber glyph and pulse ring so it sits within the palette instead of the default WhatsApp green.
 
 ## Image watermark and copyright
 
@@ -85,10 +85,13 @@ All copy and ordering live in [assets/js/data-ef.js](assets/js/data-ef.js), whic
 
 ```text
 index.html            — Ember & Frames portfolio (light theme React app, GitHub Pages entry)
+404.html              — custom not-found page
+robots.txt            — allows all crawlers
 .nojekyll             — disables GitHub Pages Jekyll processing
 README.md             — this file
+favicon.svg           — Ember & Frames viewfinder mark (shared brand favicon)
+favicon.png           — legacy E & F monogram (amber ampersand + charcoal letters on parchment)
 assets/
-  favicon.png         — E & F monogram (amber ampersand + charcoal letters on parchment)
   css/styles.css      — theme tokens, layout, type, responsive rules, watermark, FAB
   js/data-ef.js       — Ember & Frames content (photos, projects, site copy)
   images/             — 40 project photographs + og-cover.jpg

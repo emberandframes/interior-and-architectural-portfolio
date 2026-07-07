@@ -120,7 +120,10 @@ h1, h2, h3, h4, p, figure, ul, li { margin: 0; padding: 0; }
 .hover-zoom:hover img { transform: scale(1.04); }
 
 /* ── Watermark on every gallery photo ──────────────────────────────────── */
+/* The brand watermark is now burned into every image file (single source of
+   truth), so the CSS overlay is disabled to prevent a doubled mark. */
 .ph-watermark {
+  display: none;
   position: absolute;
   right: 10px;
   bottom: 8px;
@@ -191,11 +194,11 @@ h1, h2, h3, h4, p, figure, ul, li { margin: 0; padding: 0; }
 }
 .site-header .brand {
   font-family: var(--pair-display);
-  font-size: clamp(18px, 1.7vw, 22px);
-  letter-spacing: 0.005em;
+  font-size: 22px;
+  letter-spacing: 0.01em;
   text-transform: none;
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   display: inline-flex;
   align-items: baseline;
@@ -724,7 +727,6 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   transition: bottom 0.35s cubic-bezier(.2,.7,.2,1), transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   animation: waPulse 2.4s ease-in-out infinite;
 }
-.wa-fab.lift-up { bottom: 100px; }
 .wa-fab:hover {
   transform: scale(1.08);
   background: color-mix(in srgb, var(--ink) 88%, var(--accent));
@@ -756,7 +758,6 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
 }
 @media (max-width: 600px) {
   .wa-fab { width: 52px; height: 52px; bottom: 16px; right: 16px; }
-  .wa-fab.lift-up { bottom: 16px; } /* no lift/jump on mobile — footer has bottom padding instead */
   .wa-fab svg { width: 28px; height: 28px; }
   .wa-fab-label { display: none; }
 }
@@ -964,6 +965,7 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   color: rgba(255,255,255,0.45);
 }
 .lb-watermark {
+  display: none; /* burned into the image file — overlay disabled */
   position: absolute;
   right: 14px;
   bottom: 12px;

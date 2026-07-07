@@ -20,14 +20,14 @@
     { id: 'p9',  project: 'vertiga',   category: 'IRA Moonglade', caption: 'Table setting, brass and ceramic' },
     { id: 'p10', project: 'vertiga',   category: 'IRA Moonglade', caption: 'Second sitting room, red armchair' },
 
-    // ── Rü — Craft Bar · Art Cuisine ──────────────────────────────────────────
-    { id: 'r1',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Main dining room, warm lanterns' },
-    { id: 'r2',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Full floor, overhead view' },
-    { id: 'r3',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Evening service, wood divider' },
-    { id: 'r4',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Stone wall, candlelit tables' },
-    { id: 'r5',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Staircase corner, single setting' },
-    { id: 'r6',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Afternoon light through the blinds' },
-    { id: 'r7',  project: 'tiffin',    category: 'Rü — Craft Bar', caption: 'Banquette and wall niches' },
+    // ── Rü Craft Bar · Art Cuisine ──────────────────────────────────────────────
+    { id: 'r1',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Main dining room, warm lanterns' },
+    { id: 'r2',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Full floor, overhead view' },
+    { id: 'r3',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Evening service, wood divider' },
+    { id: 'r4',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Stone wall, candlelit tables' },
+    { id: 'r5',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Staircase corner, single setting' },
+    { id: 'r6',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Afternoon light through the blinds' },
+    { id: 'r7',  project: 'tiffin',    category: 'Rü Craft Bar', caption: 'Banquette and wall niches' },
 
     // ── Studio 512 · Music studio ─────────────────────────────────────────────
     { id: 's1',  project: 'studio512', category: 'Studio 512', caption: 'Control room, red session' },
@@ -67,13 +67,13 @@
       client:   'Studio 512',
       year:     '2025',
       role:     'Photography & lighting',
-      blurb:    'A full-service recording facility with five rooms: two live rooms, a control room, isolation booth, and rehearsal space. We shot entirely under practical red lighting — the studio’s own ambience, not ours. The brief was to make the gear look as good as it sounds.',
+      blurb:    'A full-service recording facility with five rooms: two live rooms, a control room, isolation booth, and rehearsal space. We shot entirely under practical red lighting, the studio’s own ambience, not ours. The brief was to make the gear look as good as it sounds.',
       photos:   ['s5','s1','s2','s13','s8','s11','s9','s17','s3','s15','s10','s6','s12','s7','s4','s16','s18','s14'],
     },
     tiffin: {
-      title:    'Rü — Craft Bar',
+      title:    'Rü Craft Bar',
       subtitle: 'Restaurant & Bar · Hyderabad',
-      client:   'Rü — Craft Bar',
+      client:   'Rü Craft Bar',
       year:     '2025',
       role:     'Photography',
       blurb:    'A warm, layered restaurant space built around handwoven lanterns, raw plaster walls, and a boulder that was simply left where it stood. We shot before service and again at peak, so the room reads both as a space and as the place it becomes when full.',
@@ -85,7 +85,7 @@
       client:   'Ira Ventures',
       year:     '2025',
       role:     'Lead photography',
-      blurb:    'A 3-bedroom show flat completed for the developer’s sales launch. Shot across a single day, the brief was to capture the space as it would feel to a buyer walking in — lived-in, warm, and full of natural light.',
+      blurb:    'A 3-bedroom show flat completed for the developer’s sales launch. Shot across a single day, the brief was to capture the space as it would feel to a buyer walking in: lived-in, warm, and full of natural light.',
       photos:   ['p5','p1','p2','p3','p4','p6','p7','p8','p9','p10'],
     },
     outdoor: {
@@ -94,7 +94,7 @@
       client:   'Lunar Cafe',
       year:     '2025',
       role:     'Photography',
-      blurb:    'An open-air dining garden built around a crescent moon sculpture and a hand-laid pebble mosaic. Shot twice — once in full afternoon light and again as the moon arch lit up at dusk. The space reads completely differently in each light.',
+      blurb:    'An open-air dining garden built around a crescent moon sculpture and a hand-laid pebble mosaic. Shot twice, once in full afternoon light and again as the moon arch lit up at dusk. The space reads completely differently in each light.',
       photos:   ['o1','o2','o3','o4','o5'],
     },
   };
@@ -116,7 +116,7 @@
     title1:      'Spaces,',
     title2:      'quietly composed.',
     tagline:     'Interior & architectural photography for hospitality, residential, and studio interiors across India.',
-    shortAbout:  'We work with developers, hospitality groups, and design studios — making pictures that earn their place on sales floors, hero banners, and brand books.',
+    shortAbout:  'We work with developers, hospitality groups, and design studios, making pictures that earn their place on sales floors, hero banners, and brand books, and make a space feel like itself: remembered, not just seen.',
 
     // Default hero photo per theme
     heroPhotoDark:  'p5', // Master bedroom, wood headboard
