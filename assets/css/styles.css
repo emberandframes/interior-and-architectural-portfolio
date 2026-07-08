@@ -867,6 +867,7 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   transition: color .25s ease;
 }
 .contact a.card:hover .value { color: var(--accent); }
+.contact .card--full { grid-column: 1 / -1; align-items: center; text-align: center; }
 
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .site-footer {

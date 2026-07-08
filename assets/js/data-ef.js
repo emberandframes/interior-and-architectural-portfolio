@@ -107,9 +107,11 @@
     name:        'Ember & Frames',
     discipline:  'Interior & Architectural Photography',
     city:        'Hyderabad, India',
-    email:       'emberandframes@gmail.com',
+    email:       'hello@emberandframes.com',
     phone:       '+91 84474 02780',
     waHref:      'https://wa.me/918447402780',
+    instagram:   'https://www.instagram.com/emberandframes',
+    instagramHandle: '@emberandframes',
     year:        '2026',
 
     // Hero copy
