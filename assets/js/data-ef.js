@@ -67,7 +67,7 @@
       client:   'Studio 512',
       year:     '2025',
       role:     'Photography & lighting',
-      blurb:    'A full-service recording facility with five rooms: two live rooms, a control room, isolation booth, and rehearsal space. We shot entirely under practical red lighting, the studio’s own ambience, not ours. The brief was to make the gear look as good as it sounds.',
+      blurb:    'A full-service recording facility with five rooms: two live rooms, a control room, isolation booth, and rehearsal space. We lit the rooms in red to match Studio 512’s own brand palette, keeping the frames in the studio’s mood rather than ours. The brief was to make the gear look as good as it sounds.',
       photos:   ['s5','s1','s2','s13','s8','s11','s9','s17','s3','s15','s10','s6','s12','s7','s4','s16','s18','s14'],
     },
     tiffin: {
@@ -76,7 +76,7 @@
       client:   'Rü Craft Bar',
       year:     '2025',
       role:     'Photography',
-      blurb:    'A warm, layered restaurant space built around handwoven lanterns, raw plaster walls, and a boulder that was simply left where it stood. We shot before service and again at peak, so the room reads both as a space and as the place it becomes when full.',
+      blurb:    'A warm, layered restaurant space built around handwoven lanterns, raw plaster walls, and a boulder that was simply left where it stood. We shot it as the light shifted through the evening, so the room reads both as a crafted space and for the warm, layered mood it settles into after dark.',
       photos:   ['r4','r2','r1','r6','r5','r3','r7'],
     },
     vertiga: {

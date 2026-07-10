@@ -468,15 +468,16 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
 /* ── Photo grid (preview = uniform 3-up; masonry = natural ratios) ─── */
 .project-block { margin-bottom: 88px; }
 
+/* Preview renders as CSS-columns masonry (natural aspect ratios) to match the
+   expanded gallery. A fixed 4/5 cover crop scaled the burned-in watermark
+   differently per image; natural sizing keeps the mark a consistent size. */
 .project-preview {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  columns: 3;
+  column-gap: 20px;
   position: relative;
 }
-.project-preview figure { cursor: zoom-in; margin: 0; }
-.project-preview .ph { aspect-ratio: 4 / 5; }
-.project-preview .ph img { width: 100%; height: 100%; object-fit: cover; }
+.project-preview figure { cursor: zoom-in; margin: 0 0 20px; break-inside: avoid; display: block; }
+.project-preview .ph img { width: 100%; height: auto; display: block; }
 .project-preview::after {
   content: '';
   position: absolute;
@@ -1062,7 +1063,8 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   .hero .content > .hero-block { bottom: 56px; left: 20px; right: 20px; max-width: calc(100% - 40px); }
   .hero .about-line { font-size: 13px; }
   .project-block { margin-bottom: 56px; }
-  .project-preview { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .project-preview { columns: 2; column-gap: 12px; }
+  .project-preview figure { margin-bottom: 12px; }
   .project-masonry { column-count: 2; column-gap: 12px; }
   .project-masonry figure { margin-bottom: 12px; }
   .project-balanced { gap: 12px; }
@@ -1075,7 +1077,7 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   .site-footer { padding: 40px 20px 88px; justify-content: center; text-align: center; }
 }
 @media (max-width: 480px) {
-  .project-preview { grid-template-columns: 1fr; }
+  .project-preview { columns: 1; }
   .project-masonry { column-count: 1; }
   .about .credentials { grid-template-columns: 1fr; }
 }
