@@ -1029,6 +1029,7 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   .about       { grid-template-columns: 1fr; gap: 36px; }
   .enquire     { grid-template-columns: 1fr; gap: 48px; }
   .contact .cards { grid-template-columns: 1fr 1fr; }
+  .contact .card--full { grid-column: auto; align-items: stretch; text-align: left; }
   .about .credentials { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
