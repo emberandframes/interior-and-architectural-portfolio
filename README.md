@@ -55,6 +55,8 @@ The wordmark renders "Ember &amp; Frames" as charcoal serif words with an amber 
 - `.footer-brand` styles the footer wordmark.
 - The `Wordmark` React component in [index.html](index.html) splits `SITE.name` on `&` and wraps the ampersand; the header, footer, and image watermarks all render through it, so the brand name is defined once in `assets/js/data-ef.js`.
 
+A faint trail of ember sparks drifts up behind the header type — glowing, spark-shaped flecks in Ember Amber (`.hdr-sparks i` in [assets/css/styles.css](assets/css/styles.css)), driven purely by CSS and switched off under `prefers-reduced-motion`.
+
 The favicon ([favicon.svg](favicon.svg)) is the Ember & Frames viewfinder mark — an amber camera frame with charcoal corner brackets on a parchment tile — shared across all three studio portfolios. The legacy `favicon.png` monogram is kept for reference.
 
 ### Palette

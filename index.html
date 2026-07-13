@@ -10,31 +10,31 @@
   <meta name="theme-color" content="#fafaf8" />
   <meta name="robots" content="index, follow" />
 
-  <title>Ember &amp; Frames — Interior &amp; Architectural Photography</title>
+  <title>Ember &amp; Frames · Interior &amp; Architectural Photography</title>
   <meta name="description" content="Interior &amp; architectural photography for hospitality, residential, and studio interiors across India. Based in Hyderabad. Commissioning for 2026." />
   <meta name="author" content="Ember &amp; Frames" />
   <meta name="keywords" content="interior photography, architectural photography, hospitality photography, real estate photography, India, Hyderabad, hotel photography, residential photography" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://emberandframes.github.io/interior-and-architectural-portfolio/" />
+  <link rel="canonical" href="https://emberandframes.com/interiors.html" />
 
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/" />
-  <meta property="og:title" content="Ember &amp; Frames — Interior &amp; Architectural Photography" />
+  <meta property="og:url" content="https://emberandframes.com/interiors.html" />
+  <meta property="og:title" content="Ember &amp; Frames · Interior &amp; Architectural Photography" />
   <meta property="og:description" content="Photography for hospitality, residential, and studio interiors across India." />
-  <meta property="og:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
-  <meta property="og:image:secure_url" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
+  <meta property="og:image" content="https://emberandframes.com/assets/media/interiors/p5.jpg" />
+  <meta property="og:image:secure_url" content="https://emberandframes.com/assets/media/interiors/p5.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:alt" content="Ember &amp; Frames — master bedroom with wood headboard, IRA Moonglade show flat" />
+  <meta property="og:image:alt" content="Ember &amp; Frames, master bedroom with wood headboard, IRA Moonglade show flat" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:site_name" content="Ember &amp; Frames" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ember &amp; Frames — Interior &amp; Architectural Photography" />
+  <meta name="twitter:title" content="Ember &amp; Frames · Interior &amp; Architectural Photography" />
   <meta name="twitter:description" content="Photography for hospitality, residential, and studio interiors across India." />
-  <meta name="twitter:image" content="https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg" />
+  <meta name="twitter:image" content="https://emberandframes.com/assets/media/interiors/p5.jpg" />
 
   <!-- Icons -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=4" />
@@ -52,19 +52,21 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Ember & Frames \u2014 Interior & Architectural Photography",
+    "@type": ["PhotographyBusiness", "ProfessionalService"],
+    "name": "Ember & Frames · Interior & Architectural Photography",
     "description": "Interior and architectural photography for hospitality, residential, and studio spaces across India.",
-    "image": "https://emberandframes.github.io/interior-and-architectural-portfolio/assets/images/p5.jpg",
-    "url": "https://emberandframes.github.io/interior-and-architectural-portfolio/",
+    "image": "https://emberandframes.com/assets/media/interiors/p5.jpg",
+    "url": "https://emberandframes.com/interiors.html",
     "areaServed": "India",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
       "addressCountry": "IN"
     },
     "email": "hello@emberandframes.com",
-    "telephone": "+91 84474 02780"
+    "telephone": "+918447402780",
+    "sameAs": ["https://www.instagram.com/emberandframes"]
   }
   </script>
 </head>
@@ -74,7 +76,7 @@
 
   <noscript>
     <div style="padding:40px;font-family:sans-serif;color:#18181a;background:#fafaf8;">
-      <h1>Ember &amp; Frames — Interior &amp; Architectural Photography</h1>
+      <h1>Ember &amp; Frames &middot; Interior &amp; Architectural Photography</h1>
       <p>This portfolio uses JavaScript to load images. Please enable JavaScript, or reach us directly:</p>
       <ul>
         <li>Email: <a href="mailto:hello@emberandframes.com">hello@emberandframes.com</a></li>
@@ -287,6 +289,7 @@
       const closeMenu = () => setMenuOpen(false);
       return (
         <header className={'site-header' + (menuOpen ? ' menu-open' : '')}>
+          <span className="hdr-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
           <a href="#top" className="brand" onClick={closeMenu}>
             <BrandName name={SITE.name} />
             <span className="discipline">· {SITE.discipline}</span>
@@ -603,7 +606,7 @@
         'Email: ' + (values.email || '') + '\n' +
         'Phone: ' + (values.phone || '') + '\n' +
         'Studio / Brand: ' + (values.studio || '') + '\n' +
-        'Project type: ' + (typesList.join(', ') || '—') + '\n\n' +
+        'Project type: ' + (typesList.join(', ') || '-') + '\n\n' +
         'Message:\n' + (values.message || '')
       );
     }
@@ -632,7 +635,7 @@
         const f = formRef.current;
         if (f && !f.checkValidity()) { f.reportValidity(); return; }
         const v = collect(); if (!v) return;
-        const subject = encodeURIComponent('Project enquiry — ' + (v.name || 'New brief'));
+        const subject = encodeURIComponent('Project enquiry: ' + (v.name || 'New brief'));
         const body = encodeURIComponent(buildEnquiryBody(v, types));
         setStatus({ msg: "Opening your email. Please send the pre-filled message to complete your enquiry. We\u2019ll reply within two working days.", kind: 'success' });
         window.location.href = 'mailto:' + SITE.email + '?subject=' + subject + '&body=' + body;
