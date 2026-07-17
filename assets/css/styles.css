@@ -123,7 +123,7 @@ h1, h2, h3, h4, p, figure, ul, li { margin: 0; padding: 0; }
 /* The brand watermark is now burned into every image file (single source of
    truth), so the CSS overlay is disabled to prevent a doubled mark. */
 .ph-watermark {
-  display: block; /* images are clean — fixed-size SVG brand mark for consistent watermark sizing */
+  display: none; /* every image carries a burned-in brand mark — CSS overlay disabled to prevent a doubled watermark */
   position: absolute;
   right: 8px;
   bottom: 8px;
@@ -967,7 +967,7 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   color: rgba(255,255,255,0.45);
 }
 .lb-watermark {
-  display: block; /* images are clean — SVG brand mark, slightly larger for the lightbox */
+  display: none; /* every image carries a burned-in brand mark — CSS overlay disabled to prevent a doubled watermark */
   position: absolute;
   right: 14px;
   bottom: 12px;
@@ -1038,7 +1038,11 @@ html[data-theme="light"] .hero .cta { color: #fafaf8; }
   .site-header .brand { font-size: 16px; }
   .site-header .brand .discipline { display: none; }
   .nav-toggle { display: flex; }
-  .site-header nav {
+  /* `nav[id]` raises specificity above the later
+     `.site-header .brand, .site-header nav, .site-header .nav-toggle { position: relative }`
+     sparks-layering rule so the mobile menu becomes a full-width dropdown
+     instead of an in-flow column wedged between the brand and hamburger. */
+  .site-header nav[id] {
     position: absolute;
     top: 100%;
     left: 0;
